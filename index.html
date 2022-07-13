@@ -16,7 +16,7 @@
     <section class="crud">
         <div class="datos-header">
             <article>
-                <h2 class="crud-title">Datos del Curso</h2>
+                <h2 class="crud-title">Ingresar nuevo Curso</h2>
                 <form class="crud-form">
                 <input type="text" name="nombre" placeholder="nombre" required>
                 <input type="text" name="Area" placeholder="area" required>
@@ -53,6 +53,14 @@
     </tr>
     </template>
 </div>
-<script src="main.js"></script>
+<script>
+    const doc = documen,
+    $table = d.querySelector(".crud-table"),
+    $form = d.querySelector(".crud-form"),
+    $title = d.querySelector(".crud-title"),
+    $template = d.getElementById("crud-template").content,
+    $fragment = d.createDocumentFragment();
+
+</script>
 </body>
 </html>
