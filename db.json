@@ -1,0 +1,81 @@
+{
+"cursos": [
+    {
+    "id": 1,
+    "nombre": "Buenas Practicas",
+    "area": "Programacion"
+    },
+    {
+    "id": 2,
+    "nombre": "Patrones",
+    "area": "Diseño"
+    },
+    {
+    "id": 3,
+    "nombre": "Java 1",
+    "area": "Programación"
+    },
+    {
+    "id": 4,
+    "nombre": "Python",
+    "area": "Programacion"
+    },
+    {
+    "id": 5,
+    "nombre": "Oracle",
+    "area": "Base Datos"
+    },
+    {
+    "id": 6,
+    "nombre": "Algoritmos",
+    "area": "Diseño"
+    },
+    {
+    "id": 7,
+    "nombre": "Ruby",
+    "area": "Programacion"
+    },
+    {
+    "id": 8,
+    "nombre": "Excel",
+    "area": "Ofimatica"
+    },
+    {
+    "id": 9,
+    "nombre": "Word",
+    "area": "Ofimatica"
+    },
+    {
+    "id": 10,
+    "nombre": "Linux",
+    "area": "Sistemas Operativos"
+    }
+],
+"docentes": [
+    {
+    "id": 1,
+    "nombre": "Bill Gates",
+    "area": "Linux"
+    },
+    {
+    "id": 2,
+    "nombre": "Steve Jobs",
+    "area": "Excel"
+    },
+    {
+    "id": 3,
+    "nombre": "Linus Trovalds",
+    "area": "Windows"
+    },
+    {
+    "id": 4,
+    "nombre": "Eddi Garcia",
+    "area": "Photoshop"
+    },
+    {
+    "id": 5,
+    "nombre": "Mark Zuckemberg",
+    "area": "Redes Sociales"
+    }
+]
+}

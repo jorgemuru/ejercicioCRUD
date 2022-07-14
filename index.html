@@ -69,10 +69,10 @@
     $template = doc.getElementById("crud-template").content,
     $fragment = doc.createDocumentFragment();
 
-    /* Logica para recuperar todos los registros de la API */
+    /* Logica para recuperar todos los registros de la API "falsa" */
     const getAll = async () => {
     try {
-    let res = await fetch("http://localhost:5050/cursos"),
+    let res = await fetch("http://localhost:3000/docentes"),
         cursos = await res.json();
 
     if (!res.ok) throw { status: res.status, statusText: res.statusText };
@@ -81,24 +81,23 @@
 
     cursos.forEach(el => {
         $template.querySelector(".nombre").textContent = el.nombre;
-        $template.querySelector(".area").textContent = el.constelacion;
+        $template.querySelector(".area").textContent = el.area;
         $template.querySelector(".edit").dataset.id = el.id;
         $template.querySelector(".edit").dataset.name = el.nombre;
-        $template.querySelector(".edit").dataset.constellation = el.constelacion;
+        $template.querySelector(".edit").dataset.area = el.area;
         $template.querySelector(".delete").dataset.id = el.id;
 
         let $clone = doc.importNode($template, true);
         $fragment.appendChild($clone);
     });
-
-    $table.querySelector("tbody").appendChild($fragment);
+        $table.querySelector("tbody").appendChild($fragment);
     } catch (err) {
-    let message = err.statusText || "Error al obtener los datos.";
-    $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+        let message = err.statusText || "Error al obtener los datos.";
+        $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
     }
 }
 
-    doc.addEventListener("DOMContentLoaded", getAll);
+doc.addEventListener("DOMContentLoaded", getAll);
 
 </script>
 </body>
