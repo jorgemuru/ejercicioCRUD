@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFKA::C3::UY::.-Sistema de Gestion de Caricaturas-.</title>
+    <title>SOFKA::C3::UY::.-Sistema de Gestion de Cursos-.</title>
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
@@ -22,8 +22,7 @@
                 <form class="crud-form">
                 <input type="text" name="nombre" placeholder="nombre" required>
                 <input type="text" name="area" placeholder="area" required>
-
-                <input type="submit" value="Enviar">
+                <input class="btnEnviar" type="submit" value="Enviar">
                 <!--Input con Id Auxiliar-->
                 <input type="hidden" name="id">
                 </form>
@@ -90,6 +89,7 @@
             let $clone = doc.importNode($template, true);
             $fragment.appendChild($clone);
         });
+
         $table.querySelector("tbody").appendChild($fragment);
     } catch (err) {
         let message = err.statusText || "Error al obtener los datos.";
@@ -159,11 +159,7 @@ doc.addEventListener("submit", async e => {
 });//fin addEventListener-"submit"
 
 doc.addEventListener("click", async e => {
-    //Inicio Debug:
-    console.log(e.target.dataset.nombre)//Debug
-    console.log(e.target.dataset.area)//Debug
-    console.log(e.target.dataset.id)//Debug
-    //Fin debug
+
     if (e.target.matches(".edit")) {
         $title.textContent = "Editar Curso";
         $form.nombre.value = e.target.dataset.nombre;

@@ -1,24 +1,14 @@
 {
   "cursos": [
     {
-      "id": 1,
-      "nombre": "Buenas Practicas",
-      "area": "Programacion"
-    },
-    {
       "id": 3,
       "nombre": "Java 1",
       "area": "Programación"
     },
     {
-      "id": 4,
-      "nombre": "Python",
-      "area": "Programacion"
-    },
-    {
-      "id": 5,
-      "nombre": "Oracle",
-      "area": "Base Datos"
+      "nombre": "MariaDB",
+      "area": "Diseño BD",
+      "id": 5
     },
     {
       "id": 7,
@@ -31,9 +21,24 @@
       "area": "Ofimatica"
     },
     {
-      "id": 9,
-      "nombre": "Word",
-      "area": "Ofimatica"
+      "nombre": "Calc",
+      "area": "Ofimatica",
+      "id": 9
+    },
+    {
+      "nombre": "Indesign",
+      "area": "Diseño Web",
+      "id": 10
+    },
+    {
+      "nombre": "Cobol",
+      "area": "Programacion",
+      "id": 11
+    },
+    {
+      "nombre": "Open Office",
+      "area": "Ofimatica",
+      "id": 13
     }
   ],
   "docentes": [
