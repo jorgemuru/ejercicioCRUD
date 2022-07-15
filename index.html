@@ -22,6 +22,7 @@
                 <form class="crud-form">
                 <input type="text" name="nombre" placeholder="nombre" required>
                 <input type="text" name="area" placeholder="area" required>
+
                 <input type="submit" value="Enviar">
                 <!--Input con Id Auxiliar-->
                 <input type="hidden" name="id">
@@ -82,7 +83,7 @@
             $template.querySelector(".nombre").textContent = el.nombre;
             $template.querySelector(".area").textContent = el.area;
             $template.querySelector(".edit").dataset.id = el.id;
-            $template.querySelector(".edit").dataset.name = el.nombre;
+            $template.querySelector(".edit").dataset.nombre = el.nombre;
             $template.querySelector(".edit").dataset.area = el.area;
             $template.querySelector(".delete").dataset.id = el.id;
 
@@ -122,6 +123,9 @@ doc.addEventListener("submit", async e => {
                 json = await res.data;
 
                 location.reload();
+                //Limpiar inputs
+                e.target.nombre.value = "";
+                e.target.area.value = "";
             } catch (err) {
                 let message = err.statusText || "Ocurrió un error al agregar el Curso";
                 $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
@@ -143,6 +147,9 @@ doc.addEventListener("submit", async e => {
                 json = await res.data;
 
                 location.reload();
+                //Limpiar inputs
+                e.target.nombre.value = "";
+                e.target.area.value = "";
             } catch (err) {
                 let message = err.statusText || "Ocurrió un error al realizar al actualizar";
                 $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
@@ -152,29 +159,34 @@ doc.addEventListener("submit", async e => {
 });//fin addEventListener-"submit"
 
 doc.addEventListener("click", async e => {
+    //Inicio Debug:
+    console.log(e.target.dataset.nombre)//Debug
+    console.log(e.target.dataset.area)//Debug
+    console.log(e.target.dataset.id)//Debug
+    //Fin debug
     if (e.target.matches(".edit")) {
         $title.textContent = "Editar Curso";
-        $form.nombre.value = e.target.dataset.name;
+        $form.nombre.value = e.target.dataset.nombre;
         $form.area.value = e.target.dataset.area;
         $form.id.value = e.target.dataset.id;
     }
 
     if (e.target.matches(".delete")) {
-        let isDelete = confirm(`¿Estás seguro de eliminar el curso ${e.target.dataset.nombre}?`);
+        let isDelete = confirm(`¿Estás seguro de eliminar el curso ${e.target.dataset.id}?`);
 
         if (isDelete) {
             //Delete - DELETE
             try {
-            let options = {
-                method: "DELETE",
-                headers: {
-                "Content-type": "application/json; charset=utf-8"
-                }
-            },
-                res = await axios(`${servUrl}/${e.target.id.value}`, options),
-                json = await res.data;
+                let options = {
+                    method: "DELETE",
+                    headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                    }
+                },
+                    res = await axios(`${servUrl}/${e.target.dataset.id}`, options),
+                    json = await res.data;
 
-            location.reload();
+                location.reload();
             } catch (err) {
                 let message = err.statusText || "Ocurrió un error y no se pudo eliminar el Curso";
                 alert(`Error ${err.status}: ${message}`);

@@ -6,11 +6,6 @@
       "area": "Programacion"
     },
     {
-      "nombre": "Patrones Soft",
-      "area": "Arkitectura",
-      "id": 2
-    },
-    {
       "id": 3,
       "nombre": "Java 1",
       "area": "Programación"
@@ -26,11 +21,6 @@
       "area": "Base Datos"
     },
     {
-      "id": 6,
-      "nombre": "Algoritmos",
-      "area": "Diseño"
-    },
-    {
       "id": 7,
       "nombre": "Ruby",
       "area": "Programacion"
@@ -44,21 +34,6 @@
       "id": 9,
       "nombre": "Word",
       "area": "Ofimatica"
-    },
-    {
-      "id": 10,
-      "nombre": "Linux",
-      "area": "Sistemas Operativos"
-    },
-    {
-      "nombre": "Python 2",
-      "area": "Programacion",
-      "id": 11
-    },
-    {
-      "nombre": "Java 2",
-      "area": "Programacion",
-      "id": 12
     }
   ],
   "docentes": [
