@@ -21,8 +21,9 @@
                 <h2 class="crud-title">Ingresar nuevo Curso</h2>
                 <form class="crud-form">
                 <input type="text" name="nombre" placeholder="nombre" required>
-                <input type="text" name="Area" placeholder="area" required>
+                <input type="text" name="area" placeholder="area" required>
                 <input type="submit" value="Enviar">
+                <!--Input con Id Auxiliar-->
                 <input type="hidden" name="id">
                 </form>
                 <br>
@@ -57,12 +58,14 @@
     </tr>
     </template>
 </div>
+
 <!-- Referenca a la libreria de AXIOS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!-- Codigo de JS -->
 <script>
-    const doc = document,
+    const doc = document;
+    const servUrl = "http://localhost:3000/cursos",
     $table = doc.querySelector(".crud-table"),
     $form = doc.querySelector(".crud-form"),
     $title = doc.querySelector(".crud-title"),
@@ -72,24 +75,20 @@
     /* Logica para recuperar todos los registros de la API "falsa" */
     const getAll = async () => {
     try {
-    let res = await fetch("http://localhost:3000/docentes"),
-        cursos = await res.json();
+        let res = await axios.get(servUrl),
+        cursos = await res.data;
 
-    if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        cursos.forEach(el => {
+            $template.querySelector(".nombre").textContent = el.nombre;
+            $template.querySelector(".area").textContent = el.area;
+            $template.querySelector(".edit").dataset.id = el.id;
+            $template.querySelector(".edit").dataset.name = el.nombre;
+            $template.querySelector(".edit").dataset.area = el.area;
+            $template.querySelector(".delete").dataset.id = el.id;
 
-    //console.log(json);
-
-    cursos.forEach(el => {
-        $template.querySelector(".nombre").textContent = el.nombre;
-        $template.querySelector(".area").textContent = el.area;
-        $template.querySelector(".edit").dataset.id = el.id;
-        $template.querySelector(".edit").dataset.name = el.nombre;
-        $template.querySelector(".edit").dataset.area = el.area;
-        $template.querySelector(".delete").dataset.id = el.id;
-
-        let $clone = doc.importNode($template, true);
-        $fragment.appendChild($clone);
-    });
+            let $clone = doc.importNode($template, true);
+            $fragment.appendChild($clone);
+        });
         $table.querySelector("tbody").appendChild($fragment);
     } catch (err) {
         let message = err.statusText || "Error al obtener los datos.";
@@ -99,6 +98,90 @@
 
 doc.addEventListener("DOMContentLoaded", getAll);
 
+/* Logica para agregar/editar un curso, boton ENVIAR del form */
+doc.addEventListener("submit", async e => {
+    if (e.target === $form) {
+    e.preventDefault();//Deshabilito la accion por default del form.
+
+        //Verifico el contenido del input idAux, para saber si es un Insert o un Update
+        if (!e.target.id.value) {
+            //Create - POST
+
+            try {
+                let options = {
+                    method: "POST",
+                    headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                    },
+                    data: JSON.stringify({
+                        nombre: e.target.nombre.value,
+                        area: e.target.area.value
+                    })
+                },
+                res = await axios(servUrl, options),
+                json = await res.data;
+
+                location.reload();
+            } catch (err) {
+                let message = err.statusText || "Ocurrió un error al agregar el Curso";
+                $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+            }
+        } else {
+            //Update - PUT
+            try {
+                let options = {
+                    method: "PUT",
+                    headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                    },
+                    data: JSON.stringify({
+                    nombre: e.target.nombre.value,
+                    area: e.target.area.value
+                    })
+                },
+                res = await axios(`${servUrl}/${e.target.id.value}`, options),
+                json = await res.data;
+
+                location.reload();
+            } catch (err) {
+                let message = err.statusText || "Ocurrió un error al realizar al actualizar";
+                $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+            }
+        }
+    }
+});//fin addEventListener-"submit"
+
+doc.addEventListener("click", async e => {
+    if (e.target.matches(".edit")) {
+        $title.textContent = "Editar Curso";
+        $form.nombre.value = e.target.dataset.name;
+        $form.area.value = e.target.dataset.area;
+        $form.id.value = e.target.dataset.id;
+    }
+
+    if (e.target.matches(".delete")) {
+        let isDelete = confirm(`¿Estás seguro de eliminar el curso ${e.target.dataset.nombre}?`);
+
+        if (isDelete) {
+            //Delete - DELETE
+            try {
+            let options = {
+                method: "DELETE",
+                headers: {
+                "Content-type": "application/json; charset=utf-8"
+                }
+            },
+                res = await axios(`${servUrl}/${e.target.id.value}`, options),
+                json = await res.data;
+
+            location.reload();
+            } catch (err) {
+                let message = err.statusText || "Ocurrió un error y no se pudo eliminar el Curso";
+                alert(`Error ${err.status}: ${message}`);
+            }
+        }
+    }
+});//fin addEventListener-"click"
 </script>
 </body>
 </html>
